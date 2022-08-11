@@ -18,5 +18,9 @@ APlayerMachine::APlayerMachine()
 void APlayerMachine::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
 {
     Super::SetupPlayerInputComponent(PlayerInputComponent);
-    PlayerInputComponent->BindAxis("FlyForward", this, &APlayerMachine::Fly);
+    PlayerInputComponent->BindAxis("Accelerate", this, &APlayerMachine::Fly);
+    PlayerInputComponent->BindAxis("UpDown", this, &APlayerMachine::ChangeUpDown);
+    PlayerInputComponent->BindAxis("Balance", this, &APlayerMachine::ChangeBalance);
+    PlayerInputComponent->BindAxis("Left", this, &APlayerMachine::ChangeDirectionToLeft);
+    PlayerInputComponent->BindAxis("Right", this, &APlayerMachine::ChangeDirectionToRight);
 }

@@ -18,7 +18,7 @@ public:
 protected:
 
 	UPROPERTY(EditAnywhere)
-	class UCapsuleComponent* CapsuleComponent_;
+	class USphereComponent* SphereComponent_;
 
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* MeshComponentDisc_;
@@ -30,12 +30,29 @@ protected:
 	UStaticMeshComponent* MeshComponentCannon_;
 
 	UPROPERTY(EditAnywhere, Category = "Movements")
-	float Speed_ = 100.f;
+	float Acceleration_Speed_Rate_ = 500.f;
+
+	UPROPERTY(EditAnywhere, Category = "Movements")
+	float Direction_Speed_Rate_ = 100.f;
+
+	UPROPERTY(EditAnywhere, Category = "Movements")
+	float Balance_Speed_Rate_ = 100.f;
+
+	UPROPERTY(EditAnywhere, Category = "Movements")
+	float UpDown_Speed_Rate_ = 100.f;
+
+	UPROPERTY(EditAnywhere, Category = "Movements")
+	bool UpDown_Inversion_ = false;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	void Fly(float InputValue);
+	void ChangeDirectionToLeft(float InputX);
+	void ChangeDirectionToRight(float InputX);
+	void ChangeDirection(float InputX);
+	void ChangeBalance(float InputX);
+	void ChangeUpDown(float InputY);
 
 public:	
 	// Called every frame
