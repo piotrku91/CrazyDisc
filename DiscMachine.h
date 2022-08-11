@@ -33,6 +33,12 @@ protected:
 	float Acceleration_Speed_Rate_ = 500.f;
 
 	UPROPERTY(EditAnywhere, Category = "Movements")
+	float Ultra_Speed_Amount_ = 2000.f;
+
+	UPROPERTY(EditAnywhere, Category = "Movements")
+	bool Ultra_Speed_Allowed_ = true;
+
+	UPROPERTY(EditAnywhere, Category = "Movements")
 	float Direction_Speed_Rate_ = 100.f;
 
 	UPROPERTY(EditAnywhere, Category = "Movements")
@@ -47,12 +53,16 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	void Fly(float InputValue);
+	void Accelerate(float InputValue);
 	void ChangeDirectionToLeft(float InputX);
 	void ChangeDirectionToRight(float InputX);
 	void ChangeDirection(float InputX);
 	void ChangeBalance(float InputX);
 	void ChangeUpDown(float InputY);
+	void SetUltraSpeed(float Input);
+
+	private:
+	bool Ultra_Speed_Active_ = false;
 
 public:	
 	// Called every frame

@@ -39,17 +39,30 @@ void ADiscMachine::Tick(float DeltaTime)
 	
 }
 
-void ADiscMachine::Fly(float InputValue)
+void ADiscMachine::Accelerate(float InputValue)
 {
+		float DeltaTime = UGameplayStatics::GetWorldDeltaSeconds(this);
 	if (InputValue > 0) {
-	SphereComponent_->SetEnableGravity(false);
-	float DeltaTime = UGameplayStatics::GetWorldDeltaSeconds(this);
-	FVector NewLocation{InputValue * DeltaTime * Acceleration_Speed_Rate_, 0 , 0};
+	float acceleration = Acceleration_Speed_Rate_;
+	if (Ultra_Speed_Active_) {acceleration = Acceleration_Speed_Rate_  + Ultra_Speed_Amount_;};
+	FVector NewLocation{InputValue * DeltaTime * acceleration, 0 , 0};
 	AddActorLocalOffset(NewLocation);
+	} else
+	{
+		FVector LocationForSlowDown{RootComponent->GetForwardVector()};
+	LocationForSlowDown = LocationForSlowDown * 5;
+	SphereComponent_->AddImpulse(LocationForSlowDown, NAME_None, true);
+	}
+}
+
+void ADiscMachine::SetUltraSpeed(float Input)
+{
+	if (Input > 0) {
+		Ultra_Speed_Active_ = true;
 	}
 	else
 	{
-	SphereComponent_->SetEnableGravity(true);
+		Ultra_Speed_Active_ = false;
 	}
 }
 
