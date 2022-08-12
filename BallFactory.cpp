@@ -2,6 +2,7 @@
 
 #include "BallFactory.h"
 #include "Gameball.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ABallFactory::ABallFactory()
@@ -27,12 +28,27 @@ void ABallFactory::BeginPlay()
 void ABallFactory::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	FVector Location{RootComponent->GetForwardVector()};
+	Location = Location * 200;
+	MeshComponent_->AddImpulse(Location, NAME_None, true);
+
+	if (Flying_Factory_)
+	{
+		FRotator NewRotation{180 * DeltaTime, 180 * DeltaTime, 180 * DeltaTime};
+		RootComponent->AddLocalRotation(NewRotation, true);
+	};
 }
 
 void ABallFactory::ProduceNewBall()
 {
-	FVector SpawnLocation = BallSpawnPointComponent_->GetComponentLocation();
-	FRotator SpawnRotation = BallSpawnPointComponent_->GetComponentRotation();
+	if (Spawned_ <= Max_Balls_Per_Level_)
+	{
 
-	GetWorld()->SpawnActor<AGameBall>(BallClass, SpawnLocation, SpawnRotation);
+		FVector SpawnLocation = BallSpawnPointComponent_->GetComponentLocation();
+		FRotator SpawnRotation = BallSpawnPointComponent_->GetComponentRotation();
+
+		GetWorld()->SpawnActor<AGameBall>(BallClass, SpawnLocation, SpawnRotation);
+		Spawned_++;
+	}
 }
