@@ -6,6 +6,8 @@
 #include "GameFramework/Pawn.h"
 #include "DiscMachine.generated.h"
 
+constexpr float MaxUltraSpeedFuelValue = 1000;
+
 UCLASS()
 class CRAZYDISC_API ADiscMachine : public APawn
 {
@@ -33,7 +35,10 @@ protected:
 	float Acceleration_Speed_Rate_ = 500.f;
 
 	UPROPERTY(EditAnywhere, Category = "Movements")
-	float Ultra_Speed_Amount_ = 2000.f;
+	float Ultra_Speed_Amount_ = 2500.f;
+
+	UPROPERTY(EditAnywhere, Category = "Movements")
+	float Ultra_Speed_Recover_Time_ = 0.2f;
 
 	UPROPERTY(EditAnywhere, Category = "Movements")
 	bool Ultra_Speed_Allowed_ = true;
@@ -50,6 +55,12 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Movements")
 	bool UpDown_Inversion_ = false;
 
+	UPROPERTY(EditAnywhere, Category = "Movements")
+	bool Slow_Down_Active_ = true;
+
+	UPROPERTY(EditAnywhere, Category = "Movements")
+	float Slow_Down_time_ = 5.f;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -62,7 +73,13 @@ protected:
 	void SetUltraSpeed(float Input);
 
 	private:
+	FTimerHandle UltraSpeedFuelValueRecoverTimer;
 	bool Ultra_Speed_Active_ = false;
+	bool Ultra_Speed_Can_Recover_ = false;
+	float Ultra_Speed_FuelValue_ = MaxUltraSpeedFuelValue;
+
+	void DecraseUltraSpeedFuelValue(float value);
+	void RecoverUltraSpeedFuelValue();
 
 public:	
 	// Called every frame
