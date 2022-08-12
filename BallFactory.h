@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "BallFactory.generated.h"
 
+
 UCLASS()
 class CRAZYDISC_API ABallFactory : public AActor
 {
@@ -25,14 +26,18 @@ protected:
 	UPROPERTY(EditAnywhere)
 	USceneComponent* BallSpawnPointComponent_;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Production")
 	float Produce_Interval_ = 10.f;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Production")
 	float Max_Balls_Per_Level_ = 20.f;
 
 private:
 	FTimerHandle BallFactoryProductionTimer;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Production")
+	TSubclassOf<class AGameBall> BallClass;
+
 	void ProduceNewBall();
 
 public:	
