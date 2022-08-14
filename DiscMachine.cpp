@@ -39,7 +39,6 @@ void ADiscMachine::BeginPlay()
 void ADiscMachine::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	UE_LOG(LogTemp, Display, TEXT("ultra speed: %f"), Ultra_Speed_FuelValue_);
 }
 
 void ADiscMachine::Accelerate(float InputValue)
