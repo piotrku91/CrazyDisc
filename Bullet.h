@@ -22,6 +22,9 @@ protected:
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent *MeshComponentBullet_;
 
+	UPROPERTY(EditAnywhere)
+	class UProjectileMovementComponent *MovementComponentBullet_;
+
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
