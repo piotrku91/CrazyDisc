@@ -145,7 +145,9 @@ void ADiscMachine::FireFirstWeapon()
 	FVector SpawnLocation = WeaponComponentSpawnPoint_->GetComponentLocation();
 	FRotator SpawnRotation = WeaponComponentSpawnPoint_->GetComponentRotation();
 
-	GetWorld()->SpawnActor<ABullet>(BulletClassFirst, SpawnLocation, SpawnRotation);
+	auto SpawnedBullet = GetWorld()->SpawnActor<ABullet>(BulletClassFirst, SpawnLocation, SpawnRotation);
+	SpawnedBullet->SetOwner(this);
+
 };
 
 void ADiscMachine::FireSecondWeapon()
@@ -153,5 +155,7 @@ void ADiscMachine::FireSecondWeapon()
 	FVector SpawnLocation = WeaponComponentSpawnPoint_->GetComponentLocation();
 	FRotator SpawnRotation = WeaponComponentSpawnPoint_->GetComponentRotation();
 
-	GetWorld()->SpawnActor<ABullet>(BulletClassSecond, SpawnLocation, SpawnRotation);
+	auto SpawnedBullet = GetWorld()->SpawnActor<ABullet>(BulletClassSecond, SpawnLocation, SpawnRotation);
+
+	SpawnedBullet->SetOwner(this);
 }

@@ -3,6 +3,8 @@
 
 #include "Bullet.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "GameFramework/DamageType.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ABullet::ABullet()
@@ -36,10 +38,15 @@ void ABullet::Tick(float DeltaTime)
 
 void ABullet::OnHit(UPrimitiveComponent *HitComp, AActor *OtherActor, UPrimitiveComponent *OtherComp, FVector NormalImpulse, const FHitResult &Hit)
 {
-	UE_LOG(LogTemp, Display, TEXT("OnHit"));
-	UE_LOG(LogTemp, Display, TEXT("HitComp: %s"), *HitComp->GetName());
-	UE_LOG(LogTemp, Display, TEXT("OtherActor: %s"), *OtherActor->GetName());
-	UE_LOG(LogTemp, Display, TEXT("OtherComp: %s"), *OtherComp->GetName());
+
+	if (!GetOwner()) return;
+
+	if (OtherActor && OtherActor != this && OtherActor != GetOwner())
+	{
+		UGameplayStatics::ApplyDamage(OtherActor, DamageAmount_, GetOwner()->GetInstigatorController(), this, UDamageType::StaticClass());
+		Destroy();
+	}
+
 }
 
 

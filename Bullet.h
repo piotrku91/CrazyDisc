@@ -25,6 +25,9 @@ protected:
 	UPROPERTY(EditAnywhere)
 	class UProjectileMovementComponent *MovementComponentBullet_;
 
+	UPROPERTY(EditAnywhere)
+	float DamageAmount_ = 20;
+
 private:
 
 	UFUNCTION()
