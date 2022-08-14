@@ -17,12 +17,20 @@ class CRAZYDISC_API APlayerMachine : public ADiscMachine
 public:
 	APlayerMachine();
 
+	virtual void BeginPlay() override;
+	virtual void Die() override;
+
+	APlayerController* GetPlayerController() const {return PlayerController_;};
+
 protected:
 	UPROPERTY(EditAnywhere)
 	class USpringArmComponent *SpringArm_;
 
 	UPROPERTY(EditAnywhere)
 	class UCameraComponent *CameraComponent_;
+
+private:
+	APlayerController* PlayerController_;
 
 public:
 	// Called to bind functionality to input

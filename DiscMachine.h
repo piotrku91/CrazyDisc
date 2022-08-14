@@ -17,8 +17,7 @@ public:
 	// Sets default values for this pawn's properties
 	ADiscMachine();
 
-	void FireFirstWeapon();
-	void FireSecondWeapon();
+	virtual void Die();
 
 protected:
 
@@ -73,8 +72,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Weapons")
 	TSubclassOf<class ABullet> BulletClassSecond;
 
-	
-	
+	void FireFirstWeapon();
+	void FireSecondWeapon();
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 

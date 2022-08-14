@@ -26,7 +26,7 @@ ADiscMachine::ADiscMachine()
 	WeaponComponentSpawnPoint_ = CreateDefaultSubobject<USceneComponent>(TEXT("Weapon spawn point"));
 	WeaponComponentSpawnPoint_->SetupAttachment(RootComponent);
 }
-
+//////////////////////////////////////////////////////////////////////////////////////////
 // Called when the game starts or when spawned
 void ADiscMachine::BeginPlay()
 {
@@ -34,13 +34,18 @@ void ADiscMachine::BeginPlay()
 
 	GetWorldTimerManager().SetTimer(UltraSpeedFuelValueRecoverTimer, this, &ADiscMachine::RecoverUltraSpeedFuelValue, Ultra_Speed_Recover_Time_, true);
 }
-
+//////////////////////////////////////////////////////////////////////////////////////////
 // Called every frame
 void ADiscMachine::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
+//////////////////////////////////////////////////////////////////////////////////////////
+void ADiscMachine::Die()
+{
 
+}
+//////////////////////////////////////////////////////////////////////////////////////////
 void ADiscMachine::Accelerate(float InputValue)
 {
 	if (InputValue > 0)
@@ -65,7 +70,7 @@ void ADiscMachine::Accelerate(float InputValue)
 		};
 	}
 }
-
+//////////////////////////////////////////////////////////////////////////////////////////
 void ADiscMachine::SetUltraSpeed(float Input)
 {
 	if (Input > 0 && Ultra_Speed_FuelValue_ > 0)
@@ -83,31 +88,31 @@ void ADiscMachine::SetUltraSpeed(float Input)
 		Ultra_Speed_Can_Recover_ = true;
 	}
 }
-
+//////////////////////////////////////////////////////////////////////////////////////////
 void ADiscMachine::ChangeDirection(float InputValue)
 {
 	float DeltaTime = UGameplayStatics::GetWorldDeltaSeconds(this);
 	FRotator NewRotation{0, InputValue * DeltaTime * Direction_Speed_Rate_, 0};
 	AddActorLocalRotation(NewRotation, true);
 }
-
+//////////////////////////////////////////////////////////////////////////////////////////
 void ADiscMachine::ChangeDirectionToLeft(float InputValue)
 {
 	ChangeDirection(InputValue);
 }
-
+//////////////////////////////////////////////////////////////////////////////////////////
 void ADiscMachine::ChangeDirectionToRight(float InputValue)
 {
 	ChangeDirection(-InputValue);
 }
-
+//////////////////////////////////////////////////////////////////////////////////////////
 void ADiscMachine::ChangeBalance(float InputX)
 {
 	float DeltaTime = UGameplayStatics::GetWorldDeltaSeconds(this);
 	FRotator NewRotation{0, 0, InputX * DeltaTime * Balance_Speed_Rate_};
 	AddActorLocalRotation(NewRotation, true);
 }
-
+//////////////////////////////////////////////////////////////////////////////////////////
 void ADiscMachine::ChangeUpDown(float InputY)
 {
 	if (UpDown_Inversion_)
@@ -118,7 +123,7 @@ void ADiscMachine::ChangeUpDown(float InputY)
 	FRotator NewRotation{InputY * DeltaTime * UpDown_Speed_Rate_, 0, 0};
 	AddActorLocalRotation(NewRotation, true);
 }
-
+//////////////////////////////////////////////////////////////////////////////////////////
 void ADiscMachine::DecraseUltraSpeedFuelValue(float value)
 {
 	Ultra_Speed_FuelValue_ -= value;
@@ -127,7 +132,7 @@ void ADiscMachine::DecraseUltraSpeedFuelValue(float value)
 		Ultra_Speed_FuelValue_ = 0;
 	};
 }
-
+//////////////////////////////////////////////////////////////////////////////////////////
 void ADiscMachine::RecoverUltraSpeedFuelValue()
 {
 	if (Ultra_Speed_Can_Recover_)
@@ -139,7 +144,7 @@ void ADiscMachine::RecoverUltraSpeedFuelValue()
 		};
 	};
 }
-
+//////////////////////////////////////////////////////////////////////////////////////////
 void ADiscMachine::FireFirstWeapon()
 {
 	FVector SpawnLocation = WeaponComponentSpawnPoint_->GetComponentLocation();
@@ -149,7 +154,7 @@ void ADiscMachine::FireFirstWeapon()
 	SpawnedBullet->SetOwner(this);
 
 };
-
+//////////////////////////////////////////////////////////////////////////////////////////
 void ADiscMachine::FireSecondWeapon()
 {
 	FVector SpawnLocation = WeaponComponentSpawnPoint_->GetComponentLocation();
@@ -159,3 +164,4 @@ void ADiscMachine::FireSecondWeapon()
 
 	SpawnedBullet->SetOwner(this);
 }
+//////////////////////////////////////////////////////////////////////////////////////////

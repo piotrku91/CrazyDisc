@@ -5,7 +5,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/InputComponent.h"
-
+//////////////////////////////////////////////////////////////////////////////////////////
 APlayerMachine::APlayerMachine()
 {
     SpringArm_ = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
@@ -14,7 +14,14 @@ APlayerMachine::APlayerMachine()
     CameraComponent_ = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
     CameraComponent_->SetupAttachment(SpringArm_);
 }
+//////////////////////////////////////////////////////////////////////////////////////////
+void APlayerMachine::BeginPlay()
+{
+    Super::BeginPlay();
 
+    PlayerController_ = Cast<APlayerController>(GetController());
+}
+//////////////////////////////////////////////////////////////////////////////////////////
 void APlayerMachine::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
 {
     Super::SetupPlayerInputComponent(PlayerInputComponent);
@@ -26,4 +33,11 @@ void APlayerMachine::SetupPlayerInputComponent(UInputComponent *PlayerInputCompo
     PlayerInputComponent->BindAxis("Ultra Speed", this, &APlayerMachine::SetUltraSpeed);
     PlayerInputComponent->BindAction("Fire 1", IE_Pressed, this, &APlayerMachine::FireFirstWeapon);
     PlayerInputComponent->BindAction("Fire 2", IE_Pressed, this, &APlayerMachine::FireSecondWeapon);
+}
+//////////////////////////////////////////////////////////////////////////////////////////
+void APlayerMachine::Die()
+{
+    Super::Die();
+    SetActorHiddenInGame(true);
+    SetActorTickEnabled(false);
 }

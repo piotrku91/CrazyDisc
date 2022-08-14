@@ -29,6 +29,8 @@ private:
 	UFUNCTION()
 	void DamageHandle(AActor* DamagedActor, float Damage, const UDamageType* DamageType, class AController* Instigator, AActor* DamageCauser);
 
+	class ACrazyDiscGameMode* GameMode_;
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
