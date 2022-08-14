@@ -24,4 +24,6 @@ void APlayerMachine::SetupPlayerInputComponent(UInputComponent *PlayerInputCompo
     PlayerInputComponent->BindAxis("Left", this, &APlayerMachine::ChangeDirectionToLeft);
     PlayerInputComponent->BindAxis("Right", this, &APlayerMachine::ChangeDirectionToRight);
     PlayerInputComponent->BindAxis("Ultra Speed", this, &APlayerMachine::SetUltraSpeed);
+    PlayerInputComponent->BindAction("Fire 1", IE_Pressed, this, &APlayerMachine::FireFirstWeapon);
+    PlayerInputComponent->BindAction("Fire 2", IE_Pressed, this, &APlayerMachine::FireSecondWeapon);
 }

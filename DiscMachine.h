@@ -17,6 +17,9 @@ public:
 	// Sets default values for this pawn's properties
 	ADiscMachine();
 
+	void FireFirstWeapon();
+	void FireSecondWeapon();
+
 protected:
 
 	UPROPERTY(EditAnywhere)
@@ -30,6 +33,9 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* MeshComponentCannon_;
+
+	UPROPERTY(EditAnywhere)
+	USceneComponent* WeaponComponentSpawnPoint_;
 
 	UPROPERTY(EditAnywhere, Category = "Movements")
 	float Acceleration_Speed_Rate_ = 500.f;
@@ -56,11 +62,14 @@ protected:
 	bool UpDown_Inversion_ = false;
 
 	UPROPERTY(EditAnywhere, Category = "Movements")
-	bool Slow_Down_Active_ = true;
+	bool Slow_Down_Active_ = false;
 
 	UPROPERTY(EditAnywhere, Category = "Movements")
 	float Slow_Down_time_ = 5.f;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Weapons")
+	TSubclassOf<class ABullet> BulletClass;
+	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 

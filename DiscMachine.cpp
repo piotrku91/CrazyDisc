@@ -3,6 +3,7 @@
 #include "DiscMachine.h"
 #include "Components/SphereComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Bullet.h"
 
 // Sets default values
 ADiscMachine::ADiscMachine()
@@ -21,6 +22,9 @@ ADiscMachine::ADiscMachine()
 
 	MeshComponentCannon_ = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Cannon"));
 	MeshComponentCannon_->SetupAttachment(MeshComponentDisc_);
+
+	WeaponComponentSpawnPoint_ = CreateDefaultSubobject<USceneComponent>(TEXT("Weapon spawn point"));
+	WeaponComponentSpawnPoint_->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
@@ -135,4 +139,20 @@ void ADiscMachine::RecoverUltraSpeedFuelValue()
 			Ultra_Speed_FuelValue_ = MaxUltraSpeedFuelValue;
 		};
 	};
+}
+
+void ADiscMachine::FireFirstWeapon()
+{
+	FVector SpawnLocation = WeaponComponentSpawnPoint_->GetComponentLocation();
+	FRotator SpawnRotation = WeaponComponentSpawnPoint_->GetComponentRotation();
+
+	GetWorld()->SpawnActor<ABullet>(BulletClass, SpawnLocation, SpawnRotation);
+};
+
+void ADiscMachine::FireSecondWeapon()
+{
+	FVector SpawnLocation = WeaponComponentSpawnPoint_->GetComponentLocation();
+	FRotator SpawnRotation = WeaponComponentSpawnPoint_->GetComponentRotation();
+
+	GetWorld()->SpawnActor<ABullet>(BulletClass, SpawnLocation, SpawnRotation);
 }
