@@ -12,9 +12,18 @@ void AScouterMachine::Tick(float DeltaTime)
     if (InRangeToAttack())
     {
         FVector PlayerLocation = Player_machine_->GetActorLocation();
+
+        auto PlayerFowardVector = Player_machine_->GetRootComponentForwardVector();
+
+        FVector ExpectedNextLocation = PlayerLocation - PlayerFowardVector;
+
+        ExpectedNextLocation.X += Expected_position_player_X_offset;
+        ExpectedNextLocation.Y += Expected_position_player_Y_offset;
+        ExpectedNextLocation.Z += Expected_position_player_Z_offset;
+
         FVector ScouterLocation = GetActorLocation();
 
-        FVector LocationsSumVector = PlayerLocation - ScouterLocation;
+        FVector LocationsSumVector = ExpectedNextLocation - ScouterLocation;
 
         FRotator CalculatedRotation = LocationsSumVector.Rotation();
 

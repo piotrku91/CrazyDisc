@@ -34,7 +34,16 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Security area settings")
 	float Minimum_detection_distance = 1000;
 
-	UPROPERTY(EditAnywhere, Category = "Security times")
-	float Attack_interval_ = 2;
+	UPROPERTY(EditAnywhere, Category = "Security")
+	float Attack_interval_ = 0.5;
+
+	UPROPERTY(EditAnywhere, Category = "Security")
+	float Expected_position_player_X_offset = 200;
+
+	UPROPERTY(EditAnywhere, Category = "Security")
+	float Expected_position_player_Y_offset = 0;
+
+	UPROPERTY(EditAnywhere, Category = "Security")
+	float Expected_position_player_Z_offset = 100;
 
 };

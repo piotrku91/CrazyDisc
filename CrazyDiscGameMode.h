@@ -22,9 +22,12 @@ public:
 protected:
 
 	virtual void BeginPlay() override;
+	void StartGame();
 
 private:
 	class APlayerMachine* PlayerMachine_;
+	class ACrazyDiscPlayerController* PlayerController_;
+
 	void PlayerDied();
 	
 };

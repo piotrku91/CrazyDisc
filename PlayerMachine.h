@@ -21,6 +21,7 @@ public:
 	virtual void Die() override;
 
 	APlayerController* GetPlayerController() const {return PlayerController_;};
+	FVector GetRootComponentForwardVector() const {return RootComponent->GetForwardVector();};
 
 protected:
 	UPROPERTY(EditAnywhere)

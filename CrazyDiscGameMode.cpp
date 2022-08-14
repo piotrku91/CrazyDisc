@@ -4,6 +4,7 @@
 #include "CrazyDiscGameMode.h"
 #include "PlayerMachine.h"
 #include "ScouterMachine.h"
+#include "CrazyDiscPlayerController.h"
 #include "Kismet/GameplayStatics.h"
 //////////////////////////////////////////////////////////////////////////////////////////
 void ACrazyDiscGameMode::SomeActorDied(AActor *DeadActor)
@@ -16,15 +17,14 @@ void ACrazyDiscGameMode::SomeActorDied(AActor *DeadActor)
     {
         ScouterMachine->Die();
     }
-}
+} 
 //////////////////////////////////////////////////////////////////////////////////////////
 void ACrazyDiscGameMode::PlayerDied()
 {
      PlayerMachine_->Die();
-        if (PlayerMachine_->GetPlayerController())
+        if (PlayerController_)
         {
-            PlayerMachine_->DisableInput(PlayerMachine_->GetPlayerController());
-            PlayerMachine_->GetPlayerController()->bShowMouseCursor = false;
+            PlayerController_->SetPlayerState(false);
         }
 }
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -33,5 +33,15 @@ void ACrazyDiscGameMode::BeginPlay()
     Super::BeginPlay();
 
     PlayerMachine_ = Cast<APlayerMachine>(UGameplayStatics::GetPlayerPawn(this, 0));
+    PlayerController_ = Cast<ACrazyDiscPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
+
+    StartGame();
+
+}
+//////////////////////////////////////////////////////////////////////////////////////////
+void ACrazyDiscGameMode::StartGame()
+{
+    PlayerController_->SetPlayerState(true);
+
 }
 //////////////////////////////////////////////////////////////////////////////////////////
