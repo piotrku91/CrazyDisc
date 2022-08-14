@@ -68,7 +68,12 @@ protected:
 	float Slow_Down_time_ = 5.f;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Weapons")
-	TSubclassOf<class ABullet> BulletClass;
+	TSubclassOf<class ABullet> BulletClassFirst;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Weapons")
+	TSubclassOf<class ABullet> BulletClassSecond;
+
+	
 	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
