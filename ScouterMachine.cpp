@@ -2,7 +2,9 @@
 
 #include "ScouterMachine.h"
 #include "PlayerMachine.h"
+#include "Bullet.h"
 #include "Kismet/GameplayStatics.h"
+#include "GameFramework/ProjectileMovementComponent.h"
 
 //////////////////////////////////////////////////////////////////////////////////////////
 void AScouterMachine::Tick(float DeltaTime)
@@ -11,9 +13,9 @@ void AScouterMachine::Tick(float DeltaTime)
 
     if (InRangeToAttack())
     {
-        FVector PlayerLocation = Player_machine_->GetActorLocation();
+       FVector PlayerLocation = Player_machine_->GetActorLocation();
 
-        auto PlayerFowardVector = Player_machine_->GetRootComponentForwardVector();
+       auto PlayerFowardVector = Player_machine_->GetRootComponentForwardVector();
 
         FVector ExpectedNextLocation = PlayerLocation - PlayerFowardVector;
 
@@ -68,3 +70,11 @@ void AScouterMachine::AttackIfNeccessary()
     };
 }
 //////////////////////////////////////////////////////////////////////////////////////////
+void AScouterMachine::FireFirstWeapon()
+{
+    FVector SpawnLocation = WeaponComponentSpawnPoint_->GetComponentLocation();
+	FRotator SpawnRotation = WeaponComponentSpawnPoint_->GetComponentRotation();
+
+	auto SpawnedBullet = GetWorld()->SpawnActor<ABullet>(BulletClassFirst, SpawnLocation, SpawnRotation);
+	SpawnedBullet->SetOwner(this);
+}

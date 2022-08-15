@@ -24,6 +24,7 @@ private:
 
 protected:
 	virtual void BeginPlay() override;
+	virtual void FireFirstWeapon() override;
 
 	UPROPERTY(EditAnywhere, Category = "Security area settings")
 	FVector Start_point_;

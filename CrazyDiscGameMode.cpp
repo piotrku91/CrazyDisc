@@ -41,6 +41,8 @@ void ACrazyDiscGameMode::BeginPlay()
 //////////////////////////////////////////////////////////////////////////////////////////
 void ACrazyDiscGameMode::StartGame()
 {
+    GameStartBegin();
+
     PlayerController_->SetPlayerState(true);
 
 }

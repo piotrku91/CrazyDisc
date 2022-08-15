@@ -72,8 +72,8 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Weapons")
 	TSubclassOf<class ABullet> BulletClassSecond;
 
-	void FireFirstWeapon();
-	void FireSecondWeapon();
+	virtual void FireFirstWeapon();
+	virtual void FireSecondWeapon();
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

@@ -24,6 +24,9 @@ protected:
 	virtual void BeginPlay() override;
 	void StartGame();
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void GameStartBegin();
+
 private:
 	class APlayerMachine* PlayerMachine_;
 	class ACrazyDiscPlayerController* PlayerController_;
