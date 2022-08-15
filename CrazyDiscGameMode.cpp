@@ -42,8 +42,21 @@ void ACrazyDiscGameMode::BeginPlay()
 void ACrazyDiscGameMode::StartGame()
 {
     GameStartBegin();
+    HealthHUDUpdate(100);
 
     PlayerController_->SetPlayerState(true);
 
 }
 //////////////////////////////////////////////////////////////////////////////////////////
+void ACrazyDiscGameMode::UpdateHealthIfItIsAPlayer(AActor* Actor, float CurrentHealth)
+{
+    if (Actor == PlayerMachine_)
+    {
+       HealthHUDUpdate(CurrentHealth);
+    }
+}
+//////////////////////////////////////////////////////////////////////////////////////////
+void ACrazyDiscGameMode::UpdatePlayerUltraSpeedFuel(float SpeedFuel, float MaxSpeedFuel)
+{
+    UltraSpeedFuelHUDUpdate(SpeedFuel / MaxSpeedFuel);
+}

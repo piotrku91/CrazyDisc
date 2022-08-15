@@ -13,11 +13,17 @@ UCLASS()
 class CRAZYDISC_API ACrazyDiscGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
-
 	
 public:
-
 	void SomeActorDied(AActor* DeadActor);
+	void UpdateHealthIfItIsAPlayer(AActor* Actor, float CurrentHealth);
+	void UpdatePlayerUltraSpeedFuel(float SpeedFuel, float MaxSpeedFuel);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void HealthHUDUpdate(float NewHealthValue);
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void UltraSpeedFuelHUDUpdate(float SpeedFuelValue);
 
 protected:
 

@@ -66,10 +66,10 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Movements")
 	float Slow_Down_time_ = 5.f;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Weapons")
+	UPROPERTY(EditAnywhere, Category = "Weapons")
 	TSubclassOf<class ABullet> BulletClassFirst;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Weapons")
+	UPROPERTY(EditAnywhere, Category = "Weapons")
 	TSubclassOf<class ABullet> BulletClassSecond;
 
 	virtual void FireFirstWeapon();
@@ -87,6 +87,8 @@ protected:
 	void SetUltraSpeed(float Input);
 
 	private:
+	class ACrazyDiscGameMode* GameMode_;
+
 	FTimerHandle UltraSpeedFuelValueRecoverTimer;
 	bool Ultra_Speed_Active_ = false;
 	bool Ultra_Speed_Can_Recover_ = false;

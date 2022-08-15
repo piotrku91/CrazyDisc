@@ -3,6 +3,7 @@
 #include "DiscMachine.h"
 #include "Components/SphereComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "CrazyDiscGameMode.h"
 #include "Bullet.h"
 
 // Sets default values
@@ -33,6 +34,9 @@ void ADiscMachine::BeginPlay()
 	Super::BeginPlay();
 
 	GetWorldTimerManager().SetTimer(UltraSpeedFuelValueRecoverTimer, this, &ADiscMachine::RecoverUltraSpeedFuelValue, Ultra_Speed_Recover_Time_, true);
+
+	GameMode_ = Cast<ACrazyDiscGameMode>(UGameplayStatics::GetGameMode(this));
+
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 // Called every frame
@@ -131,6 +135,9 @@ void ADiscMachine::DecraseUltraSpeedFuelValue(float value)
 	{
 		Ultra_Speed_FuelValue_ = 0;
 	};
+	if (GameMode_) {
+			GameMode_->UpdatePlayerUltraSpeedFuel(Ultra_Speed_FuelValue_, MaxUltraSpeedFuelValue);
+		}
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void ADiscMachine::RecoverUltraSpeedFuelValue()
@@ -142,6 +149,10 @@ void ADiscMachine::RecoverUltraSpeedFuelValue()
 		{
 			Ultra_Speed_FuelValue_ = MaxUltraSpeedFuelValue;
 		};
+
+		if (GameMode_) {
+			GameMode_->UpdatePlayerUltraSpeedFuel(Ultra_Speed_FuelValue_, MaxUltraSpeedFuelValue);
+		}
 	};
 }
 //////////////////////////////////////////////////////////////////////////////////////////

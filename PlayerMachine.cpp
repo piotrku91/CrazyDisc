@@ -20,6 +20,7 @@ void APlayerMachine::BeginPlay()
     Super::BeginPlay();
 
     PlayerController_ = Cast<APlayerController>(GetController());
+
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void APlayerMachine::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
