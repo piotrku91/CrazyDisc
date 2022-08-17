@@ -5,6 +5,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/InputComponent.h"
+#include "Grab.h"
 //////////////////////////////////////////////////////////////////////////////////////////
 APlayerMachine::APlayerMachine()
 {
@@ -13,6 +14,9 @@ APlayerMachine::APlayerMachine()
 
     CameraComponent_ = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
     CameraComponent_->SetupAttachment(SpringArm_);
+
+    GrabComponent_ = CreateDefaultSubobject<UGrab>(TEXT("Grab"));
+    GrabComponent_->SetupAttachment(RootComponent);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void APlayerMachine::BeginPlay()

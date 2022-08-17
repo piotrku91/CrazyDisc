@@ -30,6 +30,9 @@ protected:
 	UPROPERTY(EditAnywhere)
 	class UCameraComponent *CameraComponent_;
 
+	UPROPERTY(EditAnywhere)
+	class UGrab *GrabComponent_;
+
 private:
 	APlayerController* PlayerController_;
 
