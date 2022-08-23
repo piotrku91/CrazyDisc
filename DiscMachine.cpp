@@ -5,6 +5,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "CrazyDiscGameMode.h"
 #include "Bullet.h"
+#include "Engine/World.h"
 
 // Sets default values
 ADiscMachine::ADiscMachine()
@@ -63,11 +64,17 @@ void ADiscMachine::Accelerate(float InputValue)
 		};
 		FVector NewLocation{InputValue * DeltaTime * acceleration, 0, 0};
 		AddActorLocalOffset(NewLocation);
+		Last_Slow_Down_TimeStamp = 0;
 	}
 	else
 	{
-		if (Slow_Down_Active_)
+		if (Last_Slow_Down_TimeStamp == 0) {
+			Last_Slow_Down_TimeStamp = GetWorld()->RealTimeSeconds;
+		}
+		
+		if (Slow_Down_Active_ && ((GetWorld()->RealTimeSeconds - Last_Slow_Down_TimeStamp) < Slow_Down_time_))
 		{
+			
 			FVector LocationForSlowDown{RootComponent->GetForwardVector()};
 			LocationForSlowDown = LocationForSlowDown * Slow_Down_time_;
 			SphereComponent_->AddImpulse(LocationForSlowDown, NAME_None, true);

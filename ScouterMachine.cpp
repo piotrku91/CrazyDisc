@@ -5,6 +5,13 @@
 #include "Bullet.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Math/Vector.h"
+#include "MovingBody.h"
+
+AScouterMachine::AScouterMachine()
+{
+    MovingBodyComponent_ = CreateDefaultSubobject<UMovingBody>(TEXT("MovingBody"));
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////
 void AScouterMachine::Tick(float DeltaTime)
@@ -13,6 +20,7 @@ void AScouterMachine::Tick(float DeltaTime)
 
     if (InRangeToAttack())
     {
+       if (MovingBodyComponent_->Move_component_active_) {MovingBodyComponent_->Move_enabled_ = false;};
        FVector PlayerLocation = Player_machine_->GetActorLocation();
 
        auto PlayerFowardVector = Player_machine_->GetRootComponentForwardVector();
@@ -30,7 +38,11 @@ void AScouterMachine::Tick(float DeltaTime)
         FRotator CalculatedRotation = LocationsSumVector.Rotation();
 
         SetActorRotation(CalculatedRotation);
-    };
+    }
+    else
+    {
+        if (MovingBodyComponent_->Move_component_active_) {MovingBodyComponent_->Move_enabled_ = true;};
+}
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void AScouterMachine::BeginPlay()

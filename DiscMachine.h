@@ -93,6 +93,7 @@ protected:
 	bool Ultra_Speed_Active_ = false;
 	bool Ultra_Speed_Can_Recover_ = false;
 	float Ultra_Speed_FuelValue_ = MaxUltraSpeedFuelValue;
+	float Last_Slow_Down_TimeStamp = 0;
 
 	void DecraseUltraSpeedFuelValue(float value);
 	void RecoverUltraSpeedFuelValue();

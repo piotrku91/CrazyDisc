@@ -12,6 +12,8 @@ class CRAZYDISC_API AScouterMachine : public ADiscMachine
 	GENERATED_BODY()
 
 public:
+	AScouterMachine();
+
 	virtual void Tick(float DeltaTime) override;
 	virtual void Die() override;
 
@@ -26,11 +28,8 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void FireFirstWeapon() override;
 
-	UPROPERTY(EditAnywhere, Category = "Security area settings")
-	FVector Start_point_;
-
-	UPROPERTY(EditAnywhere, Category = "Security area settings")
-	FVector End_point_;
+	UPROPERTY(EditAnywhere)
+	class UMovingBody *MovingBodyComponent_;
 
 	UPROPERTY(EditAnywhere, Category = "Security area settings")
 	float Minimum_detection_distance = 1000;
