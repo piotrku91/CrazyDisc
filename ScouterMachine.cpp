@@ -20,29 +20,13 @@ void AScouterMachine::Tick(float DeltaTime)
 
     if (InRangeToAttack())
     {
-       if (MovingBodyComponent_->Move_component_active_) {MovingBodyComponent_->Move_enabled_ = false;};
-       FVector PlayerLocation = Player_machine_->GetActorLocation();
-
-       auto PlayerFowardVector = Player_machine_->GetRootComponentForwardVector();
-
-        FVector ExpectedNextLocation = PlayerLocation - PlayerFowardVector;
-
-        ExpectedNextLocation.X += Expected_position_player_X_offset;
-        ExpectedNextLocation.Y += Expected_position_player_Y_offset;
-        ExpectedNextLocation.Z += Expected_position_player_Z_offset;
-
-        FVector ScouterLocation = GetActorLocation();
-
-        FVector LocationsSumVector = ExpectedNextLocation - ScouterLocation;
-
-        FRotator CalculatedRotation = LocationsSumVector.Rotation();
-
-        SetActorRotation(CalculatedRotation);
+     /*   if (MovingBodyComponent_->Move_component_active_) {MovingBodyComponent_->Move_enabled_ = false;};
     }
     else
     {
-        if (MovingBodyComponent_->Move_component_active_) {MovingBodyComponent_->Move_enabled_ = true;};
-}
+       // if (MovingBodyComponent_->Move_component_active_) {MovingBodyComponent_->Move_enabled_ = true;};
+}*/
+};
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void AScouterMachine::BeginPlay()
