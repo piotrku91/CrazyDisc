@@ -18,15 +18,15 @@ void AScouterMachine::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
-    if (InRangeToAttack())
-    {
+  //  if (InRangeToAttack())
+   // {
      /*   if (MovingBodyComponent_->Move_component_active_) {MovingBodyComponent_->Move_enabled_ = false;};
     }
     else
     {
        // if (MovingBodyComponent_->Move_component_active_) {MovingBodyComponent_->Move_enabled_ = true;};
 }*/
-};
+//};
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void AScouterMachine::BeginPlay()
@@ -35,35 +35,17 @@ void AScouterMachine::BeginPlay()
 
     Player_machine_ = Cast<APlayerMachine>(UGameplayStatics::GetPlayerPawn(this, 0));
 
-    GetWorldTimerManager().SetTimer(ShootTimer_, this, &AScouterMachine::AttackIfNeccessary, Attack_interval_, true);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void AScouterMachine::Die()
 {
 Destroy();
 }
-//////////////////////////////////////////////////////////////////////////////////////////
 
-bool AScouterMachine::InRangeToAttack()
-{
-    if (Player_machine_)
-    {
-        float Distance = FVector::Dist(GetActorLocation(), Player_machine_->GetActorLocation());
-
-        if (Distance <= Minimum_detection_distance)
-        {
-            return true;
-        }
-    };
-    return false;
-}
 //////////////////////////////////////////////////////////////////////////////////////////
-void AScouterMachine::AttackIfNeccessary()
+void AScouterMachine::ExecuteAttack()
 {
-    if (InRangeToAttack())
-    {
-        FireFirstWeapon();
-    };
+    FireFirstWeapon();
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void AScouterMachine::FireFirstWeapon()

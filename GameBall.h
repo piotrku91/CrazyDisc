@@ -3,11 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "GameFramework/Pawn.h"
 #include "GameBall.generated.h"
 
 UCLASS()
-class CRAZYDISC_API AGameBall : public AActor
+class CRAZYDISC_API AGameBall : public APawn
 {
 	GENERATED_BODY()
 	
