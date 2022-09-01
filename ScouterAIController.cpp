@@ -13,23 +13,37 @@ void AScouterAIController::BeginPlay()
     EnemyAttackerHandle_ = Cast<IEnemyAttacker>(GetPawn());
     EnemyPatrolHandle_ = Cast<IEnemyPatrol>(GetPawn());
 
-    if (EnemyAttackerHandle_) {
-    GetWorldTimerManager().SetTimer(ShootTimer_, this, &AScouterAIController::AttackIfNeccessary, EnemyAttackerHandle_->GetAttackInterval(), true);
+    if (EnemyAttackerHandle_)
+    {
+        GetWorldTimerManager().SetTimer(ShootTimer_, this, &AScouterAIController::AttackIfNeccessary, EnemyAttackerHandle_->GetAttackInterval(), true);
     };
 }
 
-void AScouterAIController::Tick(float DeltaSeconds) 
+void AScouterAIController::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
-    
-     if (LineOfSightTo(PlayerPawn_) && InRange())
+
+    if (LineOfSightTo(PlayerPawn_) && InRange())
     {
-        if (EnemyPatrolHandle_ && EnemyPatrolHandle_->GetMovingBodyComponent()->Move_component_active_) {EnemyPatrolHandle_->GetMovingBodyComponent()->Move_enabled_ = false;};
+        if (EnemyPatrolHandle_)
+        {
+            if (EnemyPatrolHandle_->GetMovingBodyComponent() && EnemyPatrolHandle_->GetMovingBodyComponent()->Move_component_active_)
+            {
+                EnemyPatrolHandle_->GetMovingBodyComponent()->Move_enabled_ = false;
+            }
+        };
+
         SetFocus(PlayerPawn_);
     }
     else
     {
-        if (EnemyPatrolHandle_ && EnemyPatrolHandle_->GetMovingBodyComponent()->Move_component_active_) {EnemyPatrolHandle_->GetMovingBodyComponent()->Move_enabled_ = true;};
+        if (EnemyPatrolHandle_)
+        {
+            if (EnemyPatrolHandle_->GetMovingBodyComponent() && EnemyPatrolHandle_->GetMovingBodyComponent()->Move_component_active_)
+            {
+                EnemyPatrolHandle_->GetMovingBodyComponent()->Move_enabled_ = true;
+            }
+        };
         ClearFocus(EAIFocusPriority::Gameplay);
     }
 }
@@ -38,7 +52,7 @@ void AScouterAIController::AttackIfNeccessary()
 {
     if (InRange())
     {
-    EnemyAttackerHandle_->ExecuteAttack();
+        EnemyAttackerHandle_->ExecuteAttack();
     };
 }
 

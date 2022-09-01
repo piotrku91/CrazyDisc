@@ -2,6 +2,8 @@
 
 
 #include "GameBall.h"
+#include "PlayerMachine.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AGameBall::AGameBall()
@@ -17,6 +19,8 @@ AGameBall::AGameBall()
 void AGameBall::BeginPlay()
 {
 	Super::BeginPlay();
+
+	 Player_machine_ = Cast<APlayerMachine>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
 	
 }
 
@@ -24,6 +28,13 @@ void AGameBall::BeginPlay()
 void AGameBall::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+}
+
+void AGameBall::ExecuteAttack()
+{
+		FVector Location{RootComponent->GetForwardVector()};
+		MeshComponentBall_->AddImpulse(Location, NAME_None, true);
 
 }
 
