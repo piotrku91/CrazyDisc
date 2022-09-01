@@ -4,6 +4,7 @@
 #include "CrazyDiscGameMode.h"
 #include "PlayerMachine.h"
 #include "ScouterMachine.h"
+#include "GameBall.h"
 #include "CrazyDiscPlayerController.h"
 #include "Kismet/GameplayStatics.h"
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -17,6 +18,11 @@ void ACrazyDiscGameMode::SomeActorDied(AActor *DeadActor)
     {
         ScouterMachine->Die();
     }
+    else if (AGameBall* GameBall = Cast<AGameBall>(DeadActor))
+    {
+        GameBall->Die();
+    }
+    
 } 
 //////////////////////////////////////////////////////////////////////////////////////////
 void ACrazyDiscGameMode::PlayerDied()

@@ -22,9 +22,15 @@ public:
 	virtual float GetAttackInterval() override {return Attack_interval_;};
 	virtual class UMovingBody* GetMovingBodyComponent() override {return nullptr;};
     virtual float GetMinimumDistanceToDetection() override {return Minimum_detection_distance;};
+	void Die();
+
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent *HitComp, AActor *OtherActor, UPrimitiveComponent *OtherComp, FVector NormalImpulse, const FHitResult &Hit);
 
 private:
+	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* MeshComponentBall_;
+
 	class APlayerMachine* Player_machine_;
 
 protected:
